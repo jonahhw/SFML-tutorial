@@ -1,10 +1,7 @@
 #include <SFML/Graphics.hpp>
-#include <SFML/Graphics/Color.hpp>
-#include <SFML/System/Vector2.hpp>
-#include <SFML/Window/Event.hpp>
-#include <cstdio>
 #include <iostream>
 #include "Player.h"
+#include "Platform.h"
 
 static const float VIEW_HEIGHT = 512.0f;
 
@@ -16,7 +13,10 @@ int main() {
     sf::Texture playerTexture;
     playerTexture.loadFromFile("textures/penguin.png");
     
-    Player player(&playerTexture, sf::Vector2u(3, 9), 0.25f, 100.f);
+    Player player(&playerTexture, sf::Vector2u(3, 9), 0.25f, 200.f);
+
+    Platform platform1(nullptr, sf::Vector2f(100.f, 200.f), sf::Vector2f(-200.f, 0.f));
+    Platform platform2(nullptr, sf::Vector2f(100.f, 200.f), sf::Vector2f(200.f, 0.f));
     
     float deltaT = 0.f;
     sf::Clock clock;
@@ -53,6 +53,9 @@ int main() {
 
         if (inFocus)
             player.Update(deltaT);
+
+        platform1.getCollider().checkCollision(player.getCollider(), 0.f);
+        platform2.getCollider().checkCollision(player.getCollider(), 1.f);
         
         view.setCenter(player.getPosition());
 
@@ -60,6 +63,8 @@ int main() {
         window.setView(view);
 
         player.Draw(window);
+        platform1.Draw(window);
+        platform2.Draw(window);
 
         window.display();
     }
