@@ -1,2 +1,6 @@
 sfmltut
 obj/*
+
+# The following are because I stored a couple things that aren't really relevant in the same folder
+checkDepends.sh
+PKGBUILD*
