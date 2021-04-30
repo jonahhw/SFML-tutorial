@@ -5,7 +5,7 @@
 
 class Player {
     public:
-        Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed);
+        Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed, float jumpImpulse);
         ~Player();
 
         void Update(float deltaT);
@@ -13,6 +13,8 @@ class Player {
 
         sf::Vector2f getPosition() { return body.getPosition(); }
         Collider getCollider() { return Collider(body); }
+
+        void onCollision(sf::Vector2f direction);
 
     private:
         unsigned int getRow();
@@ -24,10 +26,15 @@ class Player {
         enum Movement{      // Left facing is even; numbers correnpond to row * 2
             idleLeft=0,
             idleRight,
-            movingLeft,
-            movingRight
+            walkingLeft,
+            walkingRight,
+            jumpiingLeft,
+            jumpingRight
         };
         Movement movement;
-        float speed;
+        float SpeedAddedX;      // How much speed is added to the player each frame
         sf::Texture texture;
+        sf::Vector2f velocity;
+        bool canJump;
+        float jumpImpulse;
 };

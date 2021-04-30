@@ -8,7 +8,7 @@ class Platform {
         Platform(sf::Texture* texture, sf::Vector2f size, sf::Vector2f position);
         ~Platform();
 
-        void Draw(sf::RenderWindow& window) { window.draw(body); }
+        void draw(sf::RenderWindow& window) { window.draw(body); }
         Collider getCollider() { return Collider(body); }
     
     private:
